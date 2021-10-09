@@ -1,0 +1,62 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<h1>Prueba APINetCore con consulta a SqlServer EF en Azure</h1>
+
+@*Monte este proyecto en Blazor WebAsembly para que 
+empecemos a realizar pruebas de implementación e 
+integración de servicios, este tipo de proyecto
+ya tiene como parte de la estructura un API y la capa
+Blazor, entonces por lo menos los que tenemos Blazor
+y API podemos jugar aqui!!!!*@ 
+
+
+<br/>
+<br />
+<br />
+@*<img src="/img/Arepa.png" />*@
+
+
+@*<EditForm OnSubmit="ObtenerDato">
+    <div class="form-group">
+        <label>Usuario:</label>
+        <div>
+            <InputText class="form-control" Value="@Usuario" />
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Obtener Usuario</button>
+</EditForm>*@
+
+@*<div class="row">
+    <div class="col-md-4">
+        <label class=""
+    </div>
+    <input type="text" @bind="Usuario" class="form-control"/>
+    <br />
+    <button @onclick="ObtenerDato">Obtener Usuario</button>
+</div>*@
+
+
+<form @onsubmit="ObtenerDato">
+    <div class="form-group col-md-4">
+        <label for="exampleInputEmail1">Nombre usuario</label>
+        <input type="text" class="form-control" @bind="Usuario" aria-describedby="nomUsuario">        
+    </div>    
+    <button type="submit" class="btn btn-primary">Obtener Usuario</button>
+</form>
+
+
+@code{
+
+    private string Usuario { get; set; }
+
+    async Task ObtenerDato()
+    {
+        Usuario = await Http.GetStringAsync("/api/User/GetUserName");
+        //Usuario = aux.ToString();
+        Console.WriteLine(Usuario);
+    }
+
+
+}
+
